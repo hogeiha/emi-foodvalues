@@ -1,7 +1,11 @@
 {
   "emi.category.emifoodvalues.food_values_saturation": "食物数值（按饱和度）",
-  "emi.category.emifoodvalues.food_values_nutrition": "食物数值（按饥饿值）",
-  "emifoodvalues.text.nutrition": "饥饿值：%s",
+  "emi.category.emifoodvalues.food_values_nutrition": "食物数值（按饱食度）",
+  "emifoodvalues.text.nutrition": "饱食度：%s",
   "emifoodvalues.text.saturation": "饱和度：%s",
-  "emifoodvalues.alias.food": "食物"
+  "emifoodvalues.alias.food": "食物",
+  "emifoodvalues.alias.nutrition": "饱食度=%s",
+  "emifoodvalues.alias.saturation": "饱和度=%s",
+  "emifoodvalues.alias.nutrition_at_least": "饱食度%s+",
+  "emifoodvalues.alias.saturation_at_least": "饱和度%s+"
 }

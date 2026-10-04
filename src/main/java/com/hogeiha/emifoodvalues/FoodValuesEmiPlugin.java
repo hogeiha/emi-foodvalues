@@ -19,6 +19,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class FoodValuesEmiPlugin implements EmiPlugin {
 
 	private static final Logger LOGGER = LogManager.getLogger(EmiFoodValues.MOD_ID);
+	private static final int[] NUTRITION_THRESHOLDS = {4, 6, 8};
+	private static final int[] SATURATION_THRESHOLDS = {5, 10, 15};
 
 	@Override
 	public void register(EmiRegistry registry) {
@@ -33,13 +35,31 @@ public class FoodValuesEmiPlugin implements EmiPlugin {
 			}
 		}
 
-		// Alias, so a plain search for food lists everything edible.
-		Component foodAlias = Component.translatable("emifoodvalues.alias.food");
-
 		for (ItemStack food : foods) {
 			registry.addRecipe(new FoodValueRecipe(FoodValueCategory.SATURATION, food, FoodValueSort.SATURATION));
 			registry.addRecipe(new FoodValueRecipe(FoodValueCategory.NUTRITION, food, FoodValueSort.NUTRITION));
-			registry.addAlias(EmiStack.of(food), foodAlias);
+
+			EmiStack stack = EmiStack.of(food);
+			int nutrition = FoodValueUtil.nutrition(food);
+			float saturation = FoodValueUtil.saturation(food);
+
+			// Aliases so the search bar can filter by the two values.
+			registry.addAlias(stack, Component.translatable("emifoodvalues.alias.food"));
+			registry.addAlias(stack, Component.translatable("emifoodvalues.alias.nutrition", nutrition));
+			registry.addAlias(stack, Component.translatable("emifoodvalues.alias.saturation", (int) saturation));
+
+			for (int threshold : NUTRITION_THRESHOLDS) {
+				if (nutrition >= threshold) {
+					registry.addAlias(stack,
+							Component.translatable("emifoodvalues.alias.nutrition_at_least", threshold));
+				}
+			}
+			for (int threshold : SATURATION_THRESHOLDS) {
+				if (saturation >= threshold) {
+					registry.addAlias(stack,
+							Component.translatable("emifoodvalues.alias.saturation_at_least", threshold));
+				}
+			}
 		}
 
 		LOGGER.info("Registered {} food entries in 2 EMI categories", foods.size());

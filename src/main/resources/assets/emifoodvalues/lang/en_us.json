@@ -3,5 +3,9 @@
   "emi.category.emifoodvalues.food_values_nutrition": "Food Values (by Hunger)",
   "emifoodvalues.text.nutrition": "Hunger: %s",
   "emifoodvalues.text.saturation": "Saturation: %s",
-  "emifoodvalues.alias.food": "food"
+  "emifoodvalues.alias.food": "food",
+  "emifoodvalues.alias.nutrition": "hunger =%s",
+  "emifoodvalues.alias.saturation": "saturation =%s",
+  "emifoodvalues.alias.nutrition_at_least": "hunger %s+",
+  "emifoodvalues.alias.saturation_at_least": "saturation %s+"
 }
