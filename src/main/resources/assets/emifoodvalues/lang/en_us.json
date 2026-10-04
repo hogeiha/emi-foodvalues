@@ -1,0 +1,7 @@
+{
+  "emi.category.emifoodvalues.food_values_saturation": "Food Values (by Saturation)",
+  "emi.category.emifoodvalues.food_values_nutrition": "Food Values (by Hunger)",
+  "emifoodvalues.text.nutrition": "Hunger: %s",
+  "emifoodvalues.text.saturation": "Saturation: %s",
+  "emifoodvalues.alias.food": "food"
+}

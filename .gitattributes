@@ -1,0 +1,10 @@
+* text=auto eol=lf
+
+# Windows 批处理保留 CRLF
+*.bat text eol=crlf
+
+# 二进制
+*.jar binary
+*.png binary
+*.ogg binary
+*.zip binary
