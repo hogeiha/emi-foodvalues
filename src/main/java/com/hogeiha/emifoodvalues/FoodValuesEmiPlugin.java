@@ -21,8 +21,8 @@ public class FoodValuesEmiPlugin implements EmiPlugin {
 	private static final Logger LOGGER = LogManager.getLogger(EmiFoodValues.MOD_ID);
 
 	// "饥饿值6+" / "饱和度10+" 的档位，只登记食物真的达到的那些
-	private static final int[] NUTRITION_THRESHOLDS = {4, 6, 8};
-	private static final int[] SATURATION_THRESHOLDS = {5, 10, 15};
+	private static final int[] NUTRITION_THRESHOLDS = {2, 3, 4, 5, 6, 8, 10};
+	private static final int[] SATURATION_THRESHOLDS = {5, 10, 15, 20};
 
 	@Override
 	public void register(EmiRegistry registry) {
