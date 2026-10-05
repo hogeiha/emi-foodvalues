@@ -19,6 +19,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class FoodValuesEmiPlugin implements EmiPlugin {
 
 	private static final Logger LOGGER = LogManager.getLogger(EmiFoodValues.MOD_ID);
+
+	// "饥饿值6+" / "饱和度10+" 的档位，只登记食物真的达到的那些
 	private static final int[] NUTRITION_THRESHOLDS = {4, 6, 8};
 	private static final int[] SATURATION_THRESHOLDS = {5, 10, 15};
 
@@ -38,30 +40,41 @@ public class FoodValuesEmiPlugin implements EmiPlugin {
 		for (ItemStack food : foods) {
 			registry.addRecipe(new FoodValueRecipe(FoodValueCategory.SATURATION, food, FoodValueSort.SATURATION));
 			registry.addRecipe(new FoodValueRecipe(FoodValueCategory.NUTRITION, food, FoodValueSort.NUTRITION));
+			addSearchAliases(registry, food);
+		}
 
-			EmiStack stack = EmiStack.of(food);
-			int nutrition = FoodValueUtil.nutrition(food);
-			float saturation = FoodValueUtil.saturation(food);
+		LOGGER.info("Registered {} food entries in 2 EMI categories", foods.size());
+	}
 
-			// Aliases so the search bar can filter by the two values.
-			registry.addAlias(stack, Component.translatable("emifoodvalues.alias.food"));
-			registry.addAlias(stack, Component.translatable("emifoodvalues.alias.nutrition", nutrition));
-			registry.addAlias(stack, Component.translatable("emifoodvalues.alias.saturation", (int) saturation));
+	private static void addSearchAliases(EmiRegistry registry, ItemStack food) {
+		EmiStack stack = EmiStack.of(food);
+		int nutrition = FoodValueUtil.nutrition(food);
+		float saturation = FoodValueUtil.saturation(food);
 
+		// 食物：全部可食用物品
+		registry.addAlias(stack, Component.translatable("emifoodvalues.alias.food"));
+
+		// 饥饿值：实际回复的饥饿值。饥饿值8 / 饥饿值=8 / 饥饿值6+
+		// 饱食度是同义词，键名带 _alt
+		for (String prefix : new String[] {"emifoodvalues.alias.hunger", "emifoodvalues.alias.hunger_alt"}) {
+			registry.addAlias(stack, Component.translatable(prefix, nutrition));
+			registry.addAlias(stack, Component.translatable(prefix + "_exact", nutrition));
 			for (int threshold : NUTRITION_THRESHOLDS) {
 				if (nutrition >= threshold) {
-					registry.addAlias(stack,
-							Component.translatable("emifoodvalues.alias.nutrition_at_least", threshold));
-				}
-			}
-			for (int threshold : SATURATION_THRESHOLDS) {
-				if (saturation >= threshold) {
-					registry.addAlias(stack,
-							Component.translatable("emifoodvalues.alias.saturation_at_least", threshold));
+					registry.addAlias(stack, Component.translatable(prefix + "_at_least", threshold));
 				}
 			}
 		}
 
-		LOGGER.info("Registered {} food entries in 2 EMI categories", foods.size());
+		// 饱和度：隐藏的那个值，取整数部分。饱和度14 / 饱和度=14 / 饱和度10+
+		int saturationValue = (int) saturation;
+		registry.addAlias(stack, Component.translatable("emifoodvalues.alias.saturation", saturationValue));
+		registry.addAlias(stack, Component.translatable("emifoodvalues.alias.saturation_exact", saturationValue));
+		for (int threshold : SATURATION_THRESHOLDS) {
+			if (saturation >= threshold) {
+				registry.addAlias(stack,
+						Component.translatable("emifoodvalues.alias.saturation_at_least", threshold));
+			}
+		}
 	}
 }

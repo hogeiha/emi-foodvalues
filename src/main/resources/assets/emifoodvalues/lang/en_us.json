@@ -4,8 +4,13 @@
   "emifoodvalues.text.nutrition": "Hunger: %s",
   "emifoodvalues.text.saturation": "Saturation: %s",
   "emifoodvalues.alias.food": "food",
-  "emifoodvalues.alias.nutrition": "hunger =%s",
-  "emifoodvalues.alias.saturation": "saturation =%s",
-  "emifoodvalues.alias.nutrition_at_least": "hunger %s+",
+  "emifoodvalues.alias.hunger": "hunger %s",
+  "emifoodvalues.alias.hunger_exact": "hunger =%s",
+  "emifoodvalues.alias.hunger_at_least": "hunger %s+",
+  "emifoodvalues.alias.hunger_alt": "hunger %s",
+  "emifoodvalues.alias.hunger_alt_exact": "hunger =%s",
+  "emifoodvalues.alias.hunger_alt_at_least": "hunger %s+",
+  "emifoodvalues.alias.saturation": "saturation %s",
+  "emifoodvalues.alias.saturation_exact": "saturation =%s",
   "emifoodvalues.alias.saturation_at_least": "saturation %s+"
 }
